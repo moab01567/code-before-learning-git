@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #stopwatch {
+        font-size: 32px;
+        text-align: center;
+      }
+      #time {
+        font-weight: bold;
+      }
+      button {
+        font-size: 16px;
+        margin: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stopwatch">
+      <p id="time"></p>
+      <button id="start-stop-button">Start/Stop</button>
+      <button id="reset-button">Reset</button>
+    </div>
+    <script>
+      const stopwatch = document.getElementById("stopwatch");
+      const time = document.getElementById("time");
+      const startStopButton = document.getElementById("start-stop-button");
+      const resetButton = document.getElementById("reset-button");
+
+      let intervalId;
+      let elapsedTime = 0;
+
+      function updateTime() {
+        time.innerText = formatTime(elapsedTime);
+      }
+
+      function formatTime(timeInMilliseconds) {
+        const minutes = Math.floor(timeInMilliseconds / 60000);
+        const seconds = ((timeInMilliseconds % 60000) / 1000).toFixed(0);
+        return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+      }
+
+      function startStop() {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        } else {
+          intervalId = setInterval(() => {
+            elapsedTime += 1000;
+            updateTime();
+          }, 1000);
+        }
+      }
+
+      function reset() {
+        clearInterval(intervalId);
+        intervalId = null;
+        elapsedTime = 0;
+        updateTime();
+      }
+
+      startStopButton.addEventListener("click", startStop);
+      resetButton.addEventListener("click", reset);
+    </script>
+  </body>
+</html>
