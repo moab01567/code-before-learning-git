@@ -1,0 +1,1 @@
+#allerde gjort i ex11 gjorde koden mye lettere  
